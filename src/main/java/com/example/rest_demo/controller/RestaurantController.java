@@ -1,0 +1,82 @@
+package com.example.rest_demo.controller;
+
+import com.example.rest_demo.model.Meal;
+import com.example.rest_demo.model.Restaurant;
+import com.example.rest_demo.service.MealService;
+import com.example.rest_demo.service.RestaurantService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@Controller
+@RequestMapping(path = "/restaurants")
+public class RestaurantController {
+    private final RestaurantService restaurantService;
+    @Autowired
+    public RestaurantController (RestaurantService restaurantService){
+        this.restaurantService = restaurantService;
+    }
+
+    @RequestMapping()
+    public String index(Model model){
+        model.addAttribute("restaurant", restaurantService.getRestaurants());
+        return "restaurants/index";
+    }
+
+    @GetMapping( "/create")
+    public String showAddRestaurantPage(@ModelAttribute("restaurant") Restaurant restaurant) {
+        return "restaurants/create";
+    }
+
+    @PostMapping()
+    public String create(@ModelAttribute("restaurant") Restaurant restaurant) {
+        restaurantService.save(restaurant);
+        return "redirect:/restaurants";
+    }
+
+    @GetMapping("/{id}")
+    public String show(@PathVariable("id") int id, Model model){
+        model.addAttribute("restaurant", restaurantService.get(id));
+        return "restaurants/show";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String edit(Model model, @PathVariable("id") int id){
+        model.addAttribute("restaurant", restaurantService.get(id));
+        return "restaurants/edit";
+    }
+
+    @PatchMapping("/{id}/change")
+    public String update(@ModelAttribute("restaurant") Restaurant restaurant, @PathVariable("id") int id){
+        restaurantService.save(restaurant);
+        return "redirect:/restaurants";
+    }
+
+    @PostMapping("/{id}/delete")
+    public String delete(@PathVariable("id") int id) {
+        restaurantService.delete(id);
+        return "redirect:/restaurants";
+    }
+
+    @GetMapping("/{id}/upsert_menu")
+    public String upsertMenu(Model model, @PathVariable("id") int id){
+        model.addAttribute("restaurant", restaurantService.get(id));
+        return "restaurants/upsert_menu";
+    }
+
+    @PatchMapping("/{id}/upserted")
+    public String upserted(@ModelAttribute("restaurant") Restaurant restaurant, @PathVariable("id") int id){
+        return "redirect:/restaurants";
+    }
+
+   @GetMapping("/voting")
+   public String getMealsFromMenu(Model model){
+        model.addAttribute("restaurants", restaurantService.getRestaurants());
+       return "restaurants/voting";
+    }
+
+
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Show</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div class="input-form">
+
+    <div class="col-md-5 col-lg-4 order-md-last">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-primary">Информация</span>
+        </h4>
+        <ul class="list-group mb-3">
+            <li class="list-group-item d-flex justify-content-between lh-sm">
+                <div>
+                    <h6 class="my-0" th:text="${restaurant.getId()}">Product name</h6>
+                    <small class="text-muted">Идентификатор</small>
+                </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between lh-sm">
+                <div>
+                    <h6 class="my-0" th:text="${restaurant.getName()}">Second product</h6>
+                    <small class="text-muted">Название</small>
+                </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between lh-sm">
+                <div>
+                    <form th:method="DELETE" th:action="@{/restaurants/{id}/delete(id=${restaurant.getId()})}">
+                        <input class="btn btn-warning" type="submit" value="Delete"/>
+                    </form>
+                </div>
+            </li>
+        </ul>
+
+        <div class="card p-3">
+            <a class="btn btn-primary" th:href="@{/restaurants/{id}/edit(id=${restaurant.getId()})}" role="button">Обновить</a>
+
+            <a class="btn btn-secondary" th:href="@{/restaurants/}" role="button">Назад</a>
+        </div>
+
+    </div>
+
+
+</div>
+</body>
+</html>

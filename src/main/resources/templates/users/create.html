@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create restaurant</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/objs.css}">
+</head>
+<body>
+<div class="input-form">
+    <form th:method="POST" th:action="@{/users}" th:object="${user}">
+        <label for="name" class="form-label">Роль</label>
+        <div class="input-group"  >
+            <select th:name="roleId" class="custom-select" id="inputGroupSelect04">
+                <option selected >Choose Role...</option>
+                <option th:each="role : ${role}" th:value="${role.getId()}" th:text="${role.getName()}">One</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="name" class="form-label">Логин</label>
+            <input type="text" th:field="*{name}" class="form-control" id="name" aria-describedby="Логин">
+            <label for="password" class="form-label">Пароль</label>
+            <input type="text" th:field="*{password}" class="form-control" id="password" aria-describedby="Пароль">
+            <label for="email" class="form-label">Почта</label>
+            <input type="text" th:field="*{email}" class="form-control" id="email" aria-describedby="Почта">
+        </div>
+        <button type="submit" class="btn btn-success">Создать</button>
+    </form>
+</div>
+</body>
+</html>

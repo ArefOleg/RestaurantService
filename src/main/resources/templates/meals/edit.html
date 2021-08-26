@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update restaurant</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/objs.css}">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+        <a class="navbar-brand" href="/">Управление базой данных</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/restaurants}">Рестораны
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/meals}">Блюда
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/users}">Пользователи</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="input-form">
+    <form th:method="PATCH" th:action="@{/meals/{id}/change(id=${meal.getId()})}" th:object="${meal}">
+        <label for="name" class="form-label">Ресторан</label>
+        <div class="input-group"  >
+            <select th:name="restrId" class="custom-select" id="inputGroupSelect04">
+                <option selected th:object="${restaurantOwn}" th:text="${restaurantOwn.getName()}" >Choose Restaurant...</option>
+                <option  th:each="restaurant : ${restaurant}" th:value="${restaurant.getId()}" th:text="${restaurant.getName()}">One</option>
+            </select>
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button">Button</button>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="id" class="form-label">Идентификатор</label>
+             <input type="text" th:field="*{id}" class="form-control" id="id" aria-describedby="restaurant name"/>
+            <label for="name" class="form-label">Название</label>
+            <input type="text" th:field="*{name}" class="form-control" id="name" aria-describedby="restaurant name"/>
+        </div>
+        <button type="submit" class="btn btn-success" >Обновить</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update restaurant</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/objs.css}">
+</head>
+<body>
+<div class="input-form">
+    <form th:method="PATCH" th:action="@{/restaurants/{id}/change(id=${restaurant.getId()})}" th:object="${restaurant}">
+        <div class="mb-3">
+
+            <label for="id" class="form-label">Идентификатор</label>
+             <input type="text" th:field="*{id}" class="form-control" id="id" aria-describedby="restaurant name"/>
+            <label for="name" class="form-label">Название</label>
+            <input type="text" th:field="*{name}" class="form-control" id="name" aria-describedby="restaurant name"/>
+        </div>
+        <button type="submit" class="btn btn-success" >Обновить</button>
+    </form>
+</div>
+</body>
+</html>

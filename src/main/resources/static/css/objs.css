@@ -1,0 +1,22 @@
+.input-form
+{
+    width: 35%;
+}
+
+.menu-edit-form
+{
+    width: 20%;
+}
+
+.menu-container-main
+{
+    width: 65%;
+}
+
+.menu-container
+{
+    display: inline-block;
+    float: left;
+    margin-left: 5%;
+    margin-top: 5%;
+}

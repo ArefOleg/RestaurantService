@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Upsert Menu</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/objs.css}">
+</head>
+<body>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Upsert Menu</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/objs.css}">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+        <a class="navbar-brand" href="/">Управление базой данных</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="">Рестораны
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/meals}">Блюда</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/users}">Пользователи</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<form action="#" th:action="@{/meals/{id}/upserted(id=${rest_id})}" th:object="${mealForm}"
+      method="post">
+  <fieldset>
+    <input type="submit" id="submitButton" th:value="Save">
+    <table>
+      <thead>
+      <tr>
+        <th> Meal</th>
+        <th> Meal type</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="meal, itemStat : *{meals}">
+          <input type="hidden" th:field="*{meals[__${itemStat.index}__].id}" />
+          <input type="hidden" th:field="*{meals[__${itemStat.index}__].restaurant.id}" />
+          <input type="hidden" th:field="*{meals[__${itemStat.index}__].price}" />
+        <td><input th:field="*{meals[__${itemStat.index}__].name}" /></td>
+        <td><select  th:field="*{meals[__${itemStat.index}__].mealType}" class="form-select">
+            <option th:value="''" th:text="'Not In Menu'">Breakfast</option>
+            <option th:value="'Breakfast'" th:text="'Breakfast'">Breakfast</option>
+            <option th:value="'Lunch'" th:text="'Lunch'">Lunch</option>
+            <option th:value="'Dinner'" th:text="'Dinner'">Dinner</option>
+        </select></td>
+      </tr>
+      </tbody>
+    </table>
+  </fieldset>
+</form>
+
+</body>
+</html>
