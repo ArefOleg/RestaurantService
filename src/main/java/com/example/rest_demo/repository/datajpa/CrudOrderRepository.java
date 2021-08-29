@@ -11,14 +11,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface CrudOrderRepository extends JpaRepository<Order, Integer> {
-    //@Query("SELECT COUNT(distinct ro.id) FROM Order ro WHERE ro.user.id=: userId AND ro.restaurant.id=: restId")
-  //  @Query("SELECT COUNT(distinct ro.id) FROM Order ro WHERE ro.user.id=: userId AND ro.restaurant.id=: restId AND ro.isEnabled = true")
-  //  public Integer countExistRec(@Param("userId") int userId,@Param("restId") int restId);
 
-    @Query("SELECT ro FROM Order ro WHERE ro.user.id=: userId AND ro.isEnabled = true ORDER BY ro.createdTime DESC")
+    @Query("SELECT ro FROM Order ro WHERE ro.user.id=:userId AND ro.isEnabled = true ORDER BY ro.createdTime DESC")
     public Order getUserRec(@Param("userId") int userId);
 
-    @Query("SELECT ro FROM Order ro WHERE ro.user.id=: userId AND ro.restaurant.id=: restId AND ro.isEnabled = true")
+    @Query("SELECT ro FROM Order ro WHERE ro.user.id=:userId AND ro.restaurant.id=:restId AND ro.isEnabled = true")
     public Order getExistRec(@Param("userId") int userId,@Param("restId") int restId);
 
     @Transactional

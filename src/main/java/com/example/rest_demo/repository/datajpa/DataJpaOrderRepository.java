@@ -35,10 +35,6 @@ public class DataJpaOrderRepository implements OrderRepository {
         return crudOrderRepository.findById(id).orElse(null);
     }
 
- //   public Integer countExistRec(int userId, int restrId){
- //       return crudOrderRepository.countExistRec(userId, restrId);
-  //  }
-
     public Order getExistRec(int userId, int restrId){
         return crudOrderRepository.getExistRec(userId, restrId);
     }

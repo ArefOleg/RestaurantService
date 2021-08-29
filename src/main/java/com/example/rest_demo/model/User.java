@@ -38,7 +38,7 @@ public class User extends AbstractNamedEntity{
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
-            name = "users_roles",
+            name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
@@ -46,7 +46,7 @@ public class User extends AbstractNamedEntity{
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
-            name = "restaurants_orders",
+            name = "restaurant_order",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "restaurant_id")
     )
@@ -63,6 +63,7 @@ public class User extends AbstractNamedEntity{
     public void setPassword(String password) {
         this.password = password;
     }
+
 
     public Date getRegistered() {
         return registered;
@@ -81,7 +82,7 @@ public class User extends AbstractNamedEntity{
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     public User() {

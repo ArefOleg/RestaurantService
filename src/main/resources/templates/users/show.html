@@ -15,19 +15,25 @@
         <ul class="list-group mb-3">
             <li class="list-group-item d-flex justify-content-between lh-sm">
                 <div>
-                    <h6 class="my-0" th:text="${restaurant.getId()}">Product name</h6>
-                    <small class="text-muted">Идентификатор</small>
+                    <h6 class="my-0" th:text="${user.getId()}">Product name</h6>
+                    <small class="text-muted">Id</small>
                 </div>
             </li>
             <li class="list-group-item d-flex justify-content-between lh-sm">
                 <div>
-                    <h6 class="my-0" th:text="${restaurant.getName()}">Second product</h6>
-                    <small class="text-muted">Название</small>
+                    <h6 class="my-0" th:text="${user.getName()}">Second product</h6>
+                    <small class="text-muted">Name</small>
                 </div>
             </li>
             <li class="list-group-item d-flex justify-content-between lh-sm">
                 <div>
-                    <form th:method="DELETE" th:action="@{/restaurants/{id}/delete(id=${restaurant.getId()})}">
+                    <h6 class="my-0" th:text="${user.getPassword()}">Second product</h6>
+                    <small class="text-muted">Password</small>
+                </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between lh-sm">
+                <div>
+                    <form th:method="DELETE" th:action="@{/users/{id}/delete(id=${user.getId()})}">
                         <input class="btn btn-warning" type="submit" value="Delete"/>
                     </form>
                 </div>
@@ -35,9 +41,9 @@
         </ul>
 
         <div class="card p-3">
-            <a class="btn btn-primary" th:href="@{/restaurants/{id}/edit(id=${restaurant.getId()})}" role="button">Обновить</a>
+            <a class="btn btn-primary" th:href="@{/users/{id}/edit(id=${user.getId()})}" role="button">Обновить</a>
 
-            <a class="btn btn-secondary" th:href="@{/restaurants/}" role="button">Назад</a>
+            <a class="btn btn-secondary" th:href="@{/users/}" role="button">Назад</a>
         </div>
 
     </div>

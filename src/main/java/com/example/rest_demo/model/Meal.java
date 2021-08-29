@@ -7,7 +7,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "meals")
+@Table(name = "meal")
 public class Meal extends AbstractNamedEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaraunt_id", nullable = false)
@@ -49,22 +49,24 @@ public class Meal extends AbstractNamedEntity {
         this.mealType = type;
     }
 
-    public Meal() {
-    }
+    public Meal() {}
 
-    public Meal(String name) {
-        this(null, name);
-    }
+    public Meal(Integer id, String name, Integer price) {
 
-    public Meal(Integer id, String name) {
         super(id, name);
+        this.price = price;
     }
+
+    public Meal( String name, Integer price){this(null,name, price);}
 
     public Meal(Integer id, String name, String type, Integer price){
         super(id, name);
         this.mealType = type;
         this.price = price;
     }
+
+
+
 
 
 }

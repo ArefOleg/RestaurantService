@@ -2,6 +2,7 @@ package com.example.rest_demo.controller;
 
 import com.example.rest_demo.service.OrderService;
 import com.example.rest_demo.service.RestaurantService;
+import com.example.rest_demo.util.exception.ExceedingTheTimeLimitException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +20,9 @@ public class OrderController {
     }
 
     @GetMapping("/voting")
-    public String voting(@RequestParam("restrId") int id){
+    public String voting(@RequestParam("restrId") int id) throws ExceedingTheTimeLimitException {
         orderService.createOrder(id);
-        return "redirect:/votes";
+        return "orders/votes";
     }
 
 }

@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "menus")
+@Table(name = "menu")
 public class Menu extends AbstractBaseEntity {
     @OneToOne
     @JoinColumn(name="restaurant_id")
