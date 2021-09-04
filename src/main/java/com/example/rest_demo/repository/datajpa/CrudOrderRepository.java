@@ -12,8 +12,13 @@ import java.util.List;
 
 public interface CrudOrderRepository extends JpaRepository<Order, Integer> {
 
+    @Transactional
     @Query("SELECT ro FROM Order ro WHERE ro.user.id=:userId AND ro.isEnabled = true ORDER BY ro.createdTime DESC")
     public Order getUserRec(@Param("userId") int userId);
+
+    @Transactional
+    @Query("SELECT ro FROM Order ro WHERE ro.user.id=:userId ORDER BY ro.createdTime DESC")
+    public List<Order> getAllUserVotes(@Param("userId") int userId);
 
     @Query("SELECT ro FROM Order ro WHERE ro.user.id=:userId AND ro.restaurant.id=:restId AND ro.isEnabled = true")
     public Order getExistRec(@Param("userId") int userId,@Param("restId") int restId);
@@ -23,5 +28,9 @@ public interface CrudOrderRepository extends JpaRepository<Order, Integer> {
     @Query("UPDATE Order ro SET ro.isEnabled = false WHERE ro.id=:id")
     int disablingOrder(@Param("id") int id);
 
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM Order ro WHERE ro.id=:id")
+    int delete(@Param("id") int id);
 
 }

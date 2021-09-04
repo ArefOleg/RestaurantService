@@ -12,4 +12,6 @@ public interface MenuRepository {
     boolean delete(int id);
 
     Menu get(int id);
+
+    Menu getRestaurantRec(int id);
 }

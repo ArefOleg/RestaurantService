@@ -8,17 +8,33 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "menu")
 public class Menu extends AbstractBaseEntity {
-    @OneToOne
-    @JoinColumn(name="restaurant_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "restaurant_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonBackReference
     private Restaurant restaurant;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "menu_meal",
+            joinColumns = @JoinColumn(name = "menu_id"),
+            inverseJoinColumns = @JoinColumn(name = "meal_id")
+    )
+    private Set<Meal> meals = new HashSet<>();
 
     @Column(name = "created", nullable = false)
     @NotNull
     private LocalDateTime createdTime;
+
+    @Column(name = "is_enabled", nullable = false)
+    @NotNull
+    private boolean isEnabled;
 
     public Menu() {
     }
@@ -43,12 +59,23 @@ public class Menu extends AbstractBaseEntity {
         return TimeUtil.compareWastedTime(createdTime);
     }
 
-    public Menu(Integer id, LocalDateTime created) {
-        super(id);
-        this.createdTime = created;
+    public boolean getIsEnabled(){return this.isEnabled;}
+
+    public boolean isMealEmpty(){
+        return meals.isEmpty();
     }
 
-    public Menu(LocalDateTime created) {
-        this(null, created);
+    public void setEnabled(boolean enabled){
+        this.isEnabled = enabled;
+    }
+
+    public Menu(Integer id, LocalDateTime created, boolean isEnabled) {
+        super(id);
+        this.createdTime = created;
+        this.isEnabled = isEnabled;
+    }
+
+    public Menu(LocalDateTime created, boolean isEnabled) {
+        this(null, created, isEnabled);
     }
 }

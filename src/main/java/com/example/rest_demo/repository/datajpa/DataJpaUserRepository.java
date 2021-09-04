@@ -4,6 +4,7 @@ import com.example.rest_demo.model.User;
 import com.example.rest_demo.repository.UserRepository;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -16,6 +17,7 @@ public class DataJpaUserRepository implements UserRepository {
     }
 
     @Override
+    @Transactional
     public User save(User user) {
         return crudUserRepository.save(user);
     }

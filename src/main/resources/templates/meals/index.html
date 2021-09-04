@@ -7,43 +7,17 @@
 </head>
 <body>
 <!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
-    <div class="container">
-        <a class="navbar-brand" href="/">Управление базой данных</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                aria-controls="navbarResponsive"
-                aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/restaurants}">Рестораны
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/meals}">Блюда
-                        <span class="sr-only">(current)</span>
-                    </a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" th:href="@{/users}">Пользователи</a>
-                </li>
-
-            </ul>
-        </div>
-    </div>
-</nav>
+<nav th:insert="meals/menu.html :: nav"></nav>
 
 <main class="container">
     <div class="bg-light p-5 rounded mt-3">
-        <h1>Управление Блюдами</h1>
-        <a class="btn btn-primary" href="/meals/create" role="button">Создать</a>
+        <h1>Meal Control</h1>
+        <a class="btn btn-primary" href="/meals/create" role="button">Create</a>
     </div>
 </main>
 <div class="album py-5 bg-black">
     <div class="container">
-        <h2>Список блюд</h2>
+        <h2>Meal list</h2>
         <div class="col-md-4" th:each="meal : ${meal}">
             <div class="card mb-4 shadow-sm">
             <a th:href="@{/meals/{id}(id=${meal.getId()})}"

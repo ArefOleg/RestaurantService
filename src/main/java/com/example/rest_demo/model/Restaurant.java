@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "restaurant")
@@ -14,26 +15,48 @@ public class Restaurant extends AbstractNamedEntity {
     @JsonManagedReference
     private List<Meal> meals;
 
-    @OneToOne(mappedBy = "restaurant")
-    private Menu menu;
+    @OneToMany(mappedBy = "restaurant")
+    @JsonManagedReference
+    private  List<Menu> menus;
 
-    public void setMenu(Menu menu){
-        this.menu = menu;
+    public boolean isMenuNotExist(){
+        if(this.menus == null) return false;
+        else{
+            List<Menu> activeMenu = menus.stream().filter(menu -> menu.getIsEnabled()==true).collect(Collectors.toList());
+            return activeMenu.isEmpty();
+        }
     }
 
-    public Menu getMenu(){
-        return this.menu;
+    public boolean isMealNotExist(){
+        if(this.meals==null) return true;
+        else return false;
+    }
+
+    public Menu getActiveMenu(){
+        if(this.menus == null) return null;
+        else {
+            List<Menu> activeMenu = menus.stream().filter(menu -> menu.getIsEnabled() == true).collect(Collectors.toList());
+            return activeMenu.get(0);
+        }
     }
 
     public Restaurant() {
     }
+
+    public List<Menu> getMenus(){return menus;}
 
     public List<Meal> getMeals(){
         return meals;
     }
 
     public List<Meal> getMealsFromMenu(){
-        return meals.stream().filter(meal -> meal.getMealType()!="Not In Menu").toList();
+        if(this.meals==null) return null;
+        else return this.meals.stream().filter(meal -> !meal.getMealType().equals("Not In Menu")).toList();
+    }
+
+    public boolean isNoActiveMeal(){// Если true значит, ни одного блюда нету в меню
+        if(this.meals==null) return true;
+        else return this.getMealsFromMenu().isEmpty();
     }
 
     public Restaurant(String name) {

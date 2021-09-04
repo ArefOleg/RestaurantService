@@ -1,6 +1,7 @@
 package com.example.rest_demo.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @Table(name = "meal")
 public class Meal extends AbstractNamedEntity {
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "restaraunt_id", nullable = false)
+    @JoinColumn(name = "restaurant_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonBackReference
     private Restaurant restaurant;
@@ -38,7 +39,7 @@ public class Meal extends AbstractNamedEntity {
     }
 
     public Restaurant getRestaurant() {
-        return restaurant;
+        return this.restaurant;
     }
 
     public void setRestaurant(Restaurant restaurant) {
@@ -51,22 +52,12 @@ public class Meal extends AbstractNamedEntity {
 
     public Meal() {}
 
-    public Meal(Integer id, String name, Integer price) {
-
-        super(id, name);
-        this.price = price;
-    }
-
-    public Meal( String name, Integer price){this(null,name, price);}
+    public Meal(String name, String type, Integer price){this(null,name, type, price);}
 
     public Meal(Integer id, String name, String type, Integer price){
         super(id, name);
         this.mealType = type;
         this.price = price;
     }
-
-
-
-
 
 }

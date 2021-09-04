@@ -20,13 +20,13 @@ public class Order extends AbstractBaseEntity{
     @Column(name = "is_enabled")
     private boolean isEnabled;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonBackReference
     private Restaurant restaurant;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonBackReference

@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/objs.css}">
 </head>
 <body>
+<nav th:insert="users/menu.html :: nav"></nav>
 <div class="input-form">
     <form th:method="POST" th:action="@{/users}" th:object="${user}">
         <label for="name" class="form-label">Роль</label>

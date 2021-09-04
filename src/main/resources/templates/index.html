@@ -9,7 +9,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
     <div class="container">
-        <a class="navbar-brand" href="/">Приложение по работе с ресторанами</a>
+        <a class="navbar-brand" href="/">Application for working with restaurant votes</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -18,16 +18,16 @@
         <div sec:authorize="hasAnyAuthority('ADMIN')" class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/restaurants}">Рестораны
+                    <a class="nav-link" th:href="@{/restaurants}">Restaurants
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/meals}">Блюда
+                    <a class="nav-link" th:href="@{/meals}">Meals
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/users}">Пользователи</a>
+                    <a class="nav-link" th:href="@{/users}">Users</a>
                 </li>
 
             </ul>
@@ -39,14 +39,14 @@
 </nav>
 
 <div class="container px-4 py-5" id="featured-3">
-    <h2 class="pb-2 border-bottom">Columns with icons</h2>
+    <h2 class="pb-2 border-bottom">About</h2>
     <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
         <div class="feature col">
             <div class="feature-icon bg-primary bg-gradient">
                 <svg class="bi" width="1em" height="1em"><use xlink:href="#collection"></use></svg>
             </div>
-            <h2>Featured title</h2>
-            <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+            <h2>Voting</h2>
+            <p>Follow the link to vote from the Restaurant list.</p>
             <a th:href="@{/restaurants/voting}" class="icon-link">
                 Vote
                 <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"></use></svg>
@@ -56,10 +56,11 @@
             <div class="feature-icon bg-primary bg-gradient">
                 <svg class="bi" width="1em" height="1em"><use xlink:href="#people-circle"></use></svg>
             </div>
-            <h2>Featured title</h2>
-            <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
-            <a href="#" class="icon-link">
-                Call to action
+            <h2>Your vote today</h2>
+            <p>Follow the link to see which restaurant you voted for today.
+                If your order is out of date, or you have never voted, you will be redirected to the voting page. </p>
+            <a th:href="@{/orders/user_vote}" class="icon-link">
+                Check
                 <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"></use></svg>
             </a>
         </div>
@@ -67,10 +68,10 @@
             <div class="feature-icon bg-primary bg-gradient">
                 <svg class="bi" width="1em" height="1em"><use xlink:href="#toggles2"></use></svg>
             </div>
-            <h2>Featured title</h2>
-            <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
-            <a href="#" class="icon-link">
-                Call to action
+            <h2>Your last votes</h2>
+            <p>Follow the link to view your order history.</p>
+            <a th:href="@{/orders/votes}" class="icon-link">
+                Check
                 <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"></use></svg>
             </a>
         </div>

@@ -25,9 +25,11 @@ public class DataJpaOrderRepository implements OrderRepository {
         return crudOrderRepository.findAll();
     }
 
+    public List<Order> getAllUserVotes(int userId){return crudOrderRepository.getAllUserVotes(userId);}
+
     @Override
     public boolean delete(int id) {
-        return false;
+        return crudOrderRepository.delete(id) != 0;
     }
 
     @Override

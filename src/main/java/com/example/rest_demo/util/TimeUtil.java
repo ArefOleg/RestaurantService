@@ -8,7 +8,7 @@ public class TimeUtil {
     public static boolean compareWastedTime(LocalDateTime entityTime){
         LocalDate localDate = LocalDateTime.now().toLocalDate();
         LocalDate entityLocalDate = entityTime.toLocalDate();
-        if (entityLocalDate.equals(localDate)){
+        if (entityLocalDate.equals(localDate)){ // Если даты совпадают, то вернет false
             return false;
         }
         else return localDate.isAfter(entityLocalDate);

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your vote for today</title>
+</head>
+<body>
+<div class="card mb-4 shadow-sm">
+    <ul class="list-group mb-3">
+        <li class="list-group-item d-flex justify-content-between lh-sm">
+            <div>
+                <h6 class="my-0" th:text="${order.getRestaurant().getName()}">Product name</h6>
+                <small class="text-muted">Restaurant</small>
+            </div>
+        </li>
+        <li class="list-group-item d-flex justify-content-between lh-sm">
+            <div>
+                <h6 class="my-0" th:text="${order.getCreatedTime().toLocalDate()}">Product name</h6>
+                <small class="text-muted">Time</small>
+            </div>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

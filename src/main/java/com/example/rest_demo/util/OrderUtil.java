@@ -15,31 +15,42 @@ import java.time.LocalDateTime;
 
 public class OrderUtil {
     protected static final Logger LOGGER = LoggerFactory.getLogger(OrderUtil.class);
+
     public static void orderTimeMethod(User user, Restaurant restaurant, LocalDateTime time, OrderService orderService) throws ExceedingTheTimeLimitException {
-        Order anyUserOrder = orderService.getUserRec(user.getId());
-        if (anyUserOrder == null) {
-            LOGGER.info("\nCase1: No ORDER");
-            saveOrder(user, restaurant, time, orderService);
+        LOGGER.info("\n Input info \n Restaurant name: " + restaurant.getName() +
+                "\n User name: " + user.getName());
+        if (TimeUtil.checkLocalTimeDT(time) > 0) {
+            LOGGER.info("\nCase0: ExceededTime");
+            throw new
+                    ExceedingTheTimeLimitException("\nThe time for voting is over, applications are accepted until 11 a.m.");
         } else {
-            if (TimeUtil.compareWastedTime(anyUserOrder.getCreatedTime())) {
-                disablingOrder(anyUserOrder.id(), orderService);
-                LOGGER.info("\nCase2: Disabling Order: " + anyUserOrder.id());
+            Order anyUserOrder = orderService.getUserRec(user.getId());
+            if (anyUserOrder == null) {
+                LOGGER.info("\nCase1: No ORDER");
                 saveOrder(user, restaurant, time, orderService);
-                LOGGER.info("\nCase2: New Order Service");
-            }
-            else {
-                if(TimeUtil.checkLocalTimeDT(anyUserOrder.getCreatedTime()) > 0){
-                    LOGGER.info("\nCase3: ExceededTime");
-                    throw new ExceedingTheTimeLimitException("\nCan't vote after 11! You`ve already voted." +
-                            " Your vote is " + anyUserOrder.getRestaurant().getName());
-                }
-                else {
-                    LOGGER.info("\nCase4: BeforeDT, but with oldOrder");
-                    disablingOrder(anyUserOrder.id(), orderService);
+            } else {
+                LOGGER.info("\nOld Order Info:" +
+                        "\n Restaurant name: " + anyUserOrder.getRestaurant().getName() +
+                        "\n User name: " + anyUserOrder.getUser().getName());
+                if (TimeUtil.compareWastedTime(anyUserOrder.getCreatedTime())) {//Проверка в этот же день
+                    disablingOrder(anyUserOrder, orderService, restaurant);
+                    LOGGER.info("\nCase2: Disabling Order: " + anyUserOrder.id());
                     saveOrder(user, restaurant, time, orderService);
+                    LOGGER.info("\nCase2: New Order Service");
+                } else {
+                    if (anyUserOrder.getRestaurant().getId() == restaurant.getId()) {
+                        LOGGER.info("\nCase3: Vote for same Restaurant");
+                    } else {
+                        LOGGER.info("\nCase4: BeforeDT, but with oldOrder " +
+                                "\nOld Order Restaurant name: " + anyUserOrder.getRestaurant().getName() +
+                                "\nOld Order User name: " + anyUserOrder.getUser().getName());
+                        disablingOrder(anyUserOrder, orderService, restaurant);
+                        saveOrder(user, restaurant, time, orderService);
+                    }
                 }
             }
         }
+
     }
 
     public static void saveOrder(User user, Restaurant restaurant, LocalDateTime time, OrderService orderService) {
@@ -47,8 +58,14 @@ public class OrderUtil {
         orderService.save(order);
     }
 
-    public static void disablingOrder(Integer orderId, OrderService orderService){
-        orderService.disablingOrder(orderId);
+    public static void disablingOrder(Order order, OrderService orderService, Restaurant restaurant) {
+        if(TimeUtil.compareWastedTime(order.getCreatedTime()))
+            orderService.disablingOrder(order.id());// Даты не совпали, старый заказ в историю
+        else {
+            order.setRestaurant(restaurant); // Обновляем сегодняшний заказ
+            orderService.save(order);
+        }
+        //Просто обновить запись существующую
     }
 
 }

@@ -7,7 +7,9 @@ import com.example.rest_demo.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -34,7 +36,7 @@ public class RestaurantController {
     @PostMapping()
     public String create(@ModelAttribute("restaurant") Restaurant restaurant) {
         restaurantService.save(restaurant);
-        return "redirect:/restaurants";
+        return "redirect:/meals/create";
     }
 
     @GetMapping("/{id}")
@@ -62,9 +64,11 @@ public class RestaurantController {
     }
 
     @GetMapping("/{id}/upsert_menu")
-    public String upsertMenu(Model model, @PathVariable("id") int id){
-        model.addAttribute("restaurant", restaurantService.get(id));
-        return "restaurants/upsert_menu";
+    public ModelAndView upsertMenu(@PathVariable("id") int id, ModelMap model){
+        var restaurant = restaurantService.get(id);
+        restaurantService.upsertMenu(restaurant);
+        model.addAttribute("menuId", restaurant.getActiveMenu().getId());
+        return new ModelAndView("redirect:/meals/{id}/upsert_menu");
     }
 
     @PatchMapping("/{id}/upserted")

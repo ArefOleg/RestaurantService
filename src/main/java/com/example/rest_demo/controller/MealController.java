@@ -2,9 +2,12 @@ package com.example.rest_demo.controller;
 
 import com.example.rest_demo.form.MealForm;
 import com.example.rest_demo.model.Meal;
+import com.example.rest_demo.model.Menu;
 import com.example.rest_demo.model.Restaurant;
 import com.example.rest_demo.service.MealService;
+import com.example.rest_demo.service.MenuMealIntersectionService;
 import com.example.rest_demo.service.RestaurantService;
+import com.example.rest_demo.util.MenuUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,10 +20,12 @@ import org.springframework.web.servlet.ModelAndView;
 public class MealController {
     private final MealService mealService;
     private final RestaurantService restaurantService;
+    private final MenuMealIntersectionService menuMealIntersectionService;
     @Autowired
-    public MealController(MealService mealService, RestaurantService restaurantService){
+    public MealController(MealService mealService, RestaurantService restaurantService, MenuMealIntersectionService menuMealIntersectionService){
         this.mealService = mealService;
         this.restaurantService = restaurantService;
+        this.menuMealIntersectionService = menuMealIntersectionService;
     }
 
     @RequestMapping()
@@ -72,15 +77,15 @@ public class MealController {
     }
     @PostMapping("/{id}/upserted")
     public String upserted(@ModelAttribute("mealForm") MealForm mealForm,@PathVariable("id") int id){
-        Restaurant restaurant;
+        Restaurant restaurant = restaurantService.get(id);
         mealService.saveMealsFromForm(mealForm.getMeals());
-        restaurantService.upsertMenu(restaurantService.get(id));
+        MenuUtil.upsertIntersection(restaurant.getMeals(), restaurant.getActiveMenu(), menuMealIntersectionService);
         return "redirect:/restaurants";
     }
 
     @DeleteMapping("/{id}/delete")
     public String delete(@PathVariable("id") int id) {
         mealService.delete(id);
-        return "redirect:/meal";
+        return "redirect:/meals";
     }
 }

@@ -6,11 +6,12 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
+<nav th:insert="users/menu.html :: nav"></nav>
 <div class="input-form">
 
     <div class="col-md-5 col-lg-4 order-md-last">
         <h4 class="d-flex justify-content-between align-items-center mb-3">
-            <span class="text-primary">Информация</span>
+            <span class="text-primary">Info</span>
         </h4>
         <ul class="list-group mb-3">
             <li class="list-group-item d-flex justify-content-between lh-sm">
@@ -41,9 +42,9 @@
         </ul>
 
         <div class="card p-3">
-            <a class="btn btn-primary" th:href="@{/users/{id}/edit(id=${user.getId()})}" role="button">Обновить</a>
+            <a class="btn btn-primary" th:href="@{/users/{id}/edit(id=${user.getId()})}" role="button">Update</a>
 
-            <a class="btn btn-secondary" th:href="@{/users/}" role="button">Назад</a>
+            <a class="btn btn-secondary" th:href="@{/users/}" role="button">Back</a>
         </div>
 
     </div>

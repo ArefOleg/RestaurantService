@@ -17,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class OrderService {
@@ -39,16 +40,38 @@ public class OrderService {
         user.setOrder(restaurantRepository.get(restaurantId));
     }
 
+    public List<Order> getAllUserVotes(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        AuthorityUserDetails userDetails = (AuthorityUserDetails) authentication.getPrincipal();
+        return orderRepository.getAllUserVotes(userDetails.getUserId());
+    }
+
+    public Order getUserVote(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        AuthorityUserDetails userDetails = (AuthorityUserDetails) authentication.getPrincipal();
+        var userOrder = orderRepository.getUserRec(userDetails.getUserId());
+
+        if (userOrder == null) {return null;}
+        else {
+            if (!TimeUtil.compareWastedTime(userOrder.getCreatedTime())) {
+                userOrder.setEnabled(false);
+                orderRepository.save(userOrder);
+                return null;
+            } else return userOrder;
+        }
+    }
 
     public Order save(Order order){
         return orderRepository.save(order);
     }
 
+    public void delete(int id){orderRepository.delete(id);}
+
     public Order getUserRec(int userId){
         return orderRepository.getUserRec(userId);
     }
 
-    public void disablingOrder(int orderId){ orderRepository.delete(orderId);}
+    public void disablingOrder(int orderId){ orderRepository.disablingOrder(orderId);}
 
     @Autowired
     public OrderService(DataJpaOrderRepository orderRepository, DataJpaUserRepository userRepository, DataJpaRestaurantRepository restaurantRepository){
