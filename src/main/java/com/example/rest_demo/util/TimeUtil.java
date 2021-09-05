@@ -16,7 +16,7 @@ public class TimeUtil {
 
     public static Integer checkLocalTimeDT(LocalDateTime orderTimeLocalDt){
        LocalTime orderTime = orderTimeLocalDt.toLocalTime();
-       return orderTime.compareTo(LocalTime.of(11,00));
+       return orderTime.compareTo(LocalTime.of(13,00));
     }
 
     public TimeUtil(){}

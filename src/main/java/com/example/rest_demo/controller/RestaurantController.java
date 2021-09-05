@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping(path = "/restaurants")
@@ -78,7 +79,8 @@ public class RestaurantController {
 
    @GetMapping("/voting")
    public String getMealsFromMenu(Model model){
-        model.addAttribute("restaurants", restaurantService.getRestaurants());
+        model.addAttribute("restaurants", restaurantService.getRestaurants().
+                stream().filter(restaurant -> !restaurant.isNoActiveMeal()).collect(Collectors.toList()));
        return "restaurants/voting";
     }
 

@@ -22,7 +22,7 @@ public class OrderController {
     @GetMapping("/voting")
     public String voting(@RequestParam("restrId") int id) throws ExceedingTheTimeLimitException {
         orderService.createOrder(id);
-        return "/orders/voting";
+        return "orders/voting";
     }
 
     @GetMapping("user_vote")
@@ -31,13 +31,13 @@ public class OrderController {
         var userOrder =  orderService.getUserVote();
         if(userOrder==null){return  "redirect:/restaurants/voting";}
         else model.addAttribute("order", userOrder);
-        return "/orders/user_vote";
+        return "orders/user_vote";
     }
 
     @GetMapping("/votes")
     public String votes(Model model){
         model.addAttribute("orders", orderService.getAllUserVotes());
-        return "/orders/votes";
+        return "orders/votes";
     }
 
 

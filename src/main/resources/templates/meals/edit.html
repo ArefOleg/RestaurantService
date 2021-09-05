@@ -21,10 +21,13 @@
             </div>
         </div>
         <div class="mb-3">
-            <label for="id" class="form-label">Идентификатор</label>
-             <input type="text" th:field="*{id}" class="form-control" id="id" aria-describedby="restaurant name"/>
-            <label for="name" class="form-label">Название</label>
-            <input type="text" th:field="*{name}" class="form-control" id="name" aria-describedby="restaurant name"/>
+            <label for="id" class="form-label">Id</label>
+             <input type="text" th:field="*{id}" class="form-control" id="id" aria-describedby="Meal id"/>
+            <label for="name" class="form-label">Name</label>
+            <input type="text" th:field="*{name}" class="form-control" id="name" aria-describedby="Meal name"/>
+            <label for="price" class="form-label">Price</label>
+            <input type="text" th:field="*{price}" class="form-control" id="price" aria-describedby="Price"/>
+            <input type="hidden" th:field="*{mealType}" class="form-control" id="mealType"/>
         </div>
         <button type="submit" class="btn btn-success" >Обновить</button>
     </form>

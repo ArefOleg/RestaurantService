@@ -1,6 +1,6 @@
 window.onload =
     function myFunction(){document.querySelectorAll('.btn-success').forEach(function(el) {
-        var dtHour = 11;
+        var dtHour = 13;
         var sdtMinute = 0;
         var dtSecond = 0;
         var dtTimeObject = new Date();

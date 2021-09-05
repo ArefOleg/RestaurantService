@@ -34,6 +34,10 @@ public class Meal extends AbstractNamedEntity {
         return this.mealType;
     }
 
+    public void setMealType(String type) {
+        this.mealType = type;
+    }
+
     public Integer getRestaurantId(){
         return getRestaurant().getId();
     }
@@ -46,13 +50,14 @@ public class Meal extends AbstractNamedEntity {
         this.restaurant = restaurant;
     }
 
-    public void setMealType(String type) {
-        this.mealType = type;
-    }
-
     public Meal() {}
 
-    public Meal(String name, String type, Integer price){this(null,name, type, price);}
+    public Meal(String name, Integer price){this(null,name, price);}
+
+    public Meal(Integer id, String name, Integer price){
+        super(id, name);
+        this.price = price;
+    }
 
     public Meal(Integer id, String name, String type, Integer price){
         super(id, name);

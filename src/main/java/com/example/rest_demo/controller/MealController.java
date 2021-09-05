@@ -42,6 +42,7 @@ public class MealController {
 
     @PostMapping()
     public String create(@ModelAttribute("meal") Meal meal, @RequestParam(value = "restrId") int id) {
+        meal.setMealType("Not In Menu");
         mealService.save(meal, id);
         return "redirect:/meals";
     }

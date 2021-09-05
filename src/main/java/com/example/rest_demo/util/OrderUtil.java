@@ -32,11 +32,9 @@ public class OrderUtil {
                 LOGGER.info("\nOld Order Info:" +
                         "\n Restaurant name: " + anyUserOrder.getRestaurant().getName() +
                         "\n User name: " + anyUserOrder.getUser().getName());
-                if (TimeUtil.compareWastedTime(anyUserOrder.getCreatedTime())) {//Проверка в этот же день
-                    disablingOrder(anyUserOrder, orderService, restaurant);
+                if (!TimeUtil.compareWastedTime(anyUserOrder.getCreatedTime())) {//Проверка в этот же день
+                    disablingOrder(anyUserOrder, orderService, restaurant, time);
                     LOGGER.info("\nCase2: Disabling Order: " + anyUserOrder.id());
-                    saveOrder(user, restaurant, time, orderService);
-                    LOGGER.info("\nCase2: New Order Service");
                 } else {
                     if (anyUserOrder.getRestaurant().getId() == restaurant.getId()) {
                         LOGGER.info("\nCase3: Vote for same Restaurant");
@@ -44,7 +42,7 @@ public class OrderUtil {
                         LOGGER.info("\nCase4: BeforeDT, but with oldOrder " +
                                 "\nOld Order Restaurant name: " + anyUserOrder.getRestaurant().getName() +
                                 "\nOld Order User name: " + anyUserOrder.getUser().getName());
-                        disablingOrder(anyUserOrder, orderService, restaurant);
+                        disablingOrder(anyUserOrder, orderService, restaurant, time);
                         saveOrder(user, restaurant, time, orderService);
                     }
                 }
@@ -58,14 +56,19 @@ public class OrderUtil {
         orderService.save(order);
     }
 
-    public static void disablingOrder(Order order, OrderService orderService, Restaurant restaurant) {
-        if(TimeUtil.compareWastedTime(order.getCreatedTime()))
+    public static void disablingOrder(Order order, OrderService orderService, Restaurant restaurant, LocalDateTime time) {
+        if(TimeUtil.compareWastedTime(order.getCreatedTime())) {
+            LOGGER.info("\nCase2: New Order Service");
             orderService.disablingOrder(order.id());// Даты не совпали, старый заказ в историю
+            saveOrder(order.getUser(), restaurant, time, orderService);
+
+        }
         else {
+            LOGGER.info("\nCase2: Update Order");
             order.setRestaurant(restaurant); // Обновляем сегодняшний заказ
             orderService.save(order);
         }
-        //Просто обновить запись существующую
+
     }
 
 }

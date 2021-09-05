@@ -29,7 +29,7 @@ public class Restaurant extends AbstractNamedEntity {
 
     public boolean isMealNotExist(){
         if(this.meals==null) return true;
-        else return false;
+        else return this.meals.isEmpty();
     }
 
     public Menu getActiveMenu(){

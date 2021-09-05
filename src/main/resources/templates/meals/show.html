@@ -11,25 +11,31 @@
 
     <div class="col-md-5 col-lg-4 order-md-last">
         <h4 class="d-flex justify-content-between align-items-center mb-3">
-            <span class="text-primary">Информация</span>
+            <span class="text-primary">Information</span>
         </h4>
         <ul class="list-group mb-3">
             <li class="list-group-item d-flex justify-content-between lh-sm">
                 <div>
                     <h6 class="my-0" th:text="${restaurantOwn.getName()}">Product name</h6>
-                    <small class="text-muted">Ресторан</small>
+                    <small class="text-muted">Restaurant</small>
                 </div>
             </li>
             <li class="list-group-item d-flex justify-content-between lh-sm">
                 <div>
                     <h6 class="my-0" th:text="${meal.getId()}">Product name</h6>
-                    <small class="text-muted">Идентификатор</small>
+                    <small class="text-muted">Id</small>
                 </div>
             </li>
             <li class="list-group-item d-flex justify-content-between lh-sm">
                 <div>
                     <h6 class="my-0" th:text="${meal.getName()}">Second product</h6>
-                    <small class="text-muted">Название</small>
+                    <small class="text-muted">Meal</small>
+                </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between lh-sm">
+                <div>
+                    <h6 class="my-0" th:text="${meal.getPrice()}">Second product</h6>
+                    <small class="text-muted">Price</small>
                 </div>
             </li>
             <li class="list-group-item d-flex justify-content-between lh-sm">

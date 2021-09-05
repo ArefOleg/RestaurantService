@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 Thanks for Voting!
+<a th:href="@{/}"
+   th:text="'Go back to menu'">user</a>
 </body>
 </html>
