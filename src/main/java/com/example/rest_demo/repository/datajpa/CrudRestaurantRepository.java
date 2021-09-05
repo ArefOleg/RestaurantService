@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 public interface CrudRestaurantRepository extends JpaRepository<Restaurant, Integer> {
 
@@ -22,4 +23,7 @@ public interface CrudRestaurantRepository extends JpaRepository<Restaurant, Inte
     @Modifying
     @Query("DELETE FROM Restaurant r WHERE r.id=:id")
     int delete(@Param("id") int id);
+
+    @Query("SELECT r FROM Restaurant r WHERE r.name=:name")
+    public Optional<Restaurant> getRestaurantByName(@Param("name") String name);
 }

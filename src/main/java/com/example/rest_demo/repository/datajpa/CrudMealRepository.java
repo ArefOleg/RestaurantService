@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 public interface CrudMealRepository extends JpaRepository<Meal, Integer> {
 
@@ -22,4 +23,7 @@ public interface CrudMealRepository extends JpaRepository<Meal, Integer> {
 
     @Query("SELECT m FROM Meal m WHERE m.restaurant.id = :id")
     public List<Meal> getMealByRestaurantId(@Param("id") int id);
+
+    @Query("SELECT m FROM Meal m WHERE m.name=:name AND m.restaurant.id=:restrId")
+    public Optional<Meal> getMealByName(@Param("name") String name, @Param("restrId") Integer restaurantId);
 }

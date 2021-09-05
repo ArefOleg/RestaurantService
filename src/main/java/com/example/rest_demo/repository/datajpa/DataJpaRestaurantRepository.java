@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
+
 @Repository
 public class DataJpaRestaurantRepository implements RestaurantRepository {
 
@@ -36,5 +38,8 @@ public class DataJpaRestaurantRepository implements RestaurantRepository {
         return crudRestaurantRepository.findById(id).orElse(null);
     }
 
-
+    @Override
+    public Optional<Restaurant> getRestaurantByName(String name) {
+        return crudRestaurantRepository.getRestaurantByName(name);
+    }
 }

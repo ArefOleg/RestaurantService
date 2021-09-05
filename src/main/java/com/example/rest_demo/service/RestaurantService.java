@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RestaurantService {
@@ -21,7 +22,7 @@ public class RestaurantService {
         this.menuRepository = menuRepository;
     }
     public List<Restaurant> getRestaurants(){
-       return restaurantRepository.getAll();
+        return restaurantRepository.getAll();
     }
 
     public Restaurant save(Restaurant restaurant){
@@ -61,8 +62,11 @@ public class RestaurantService {
         return menuRepository.save(menu);
     }
 
+    public Optional<Restaurant> getRestaurantByName(String name) {
+        return restaurantRepository.getRestaurantByName(name);
+    }
     //public List<Restaurant> getRestaurantsName(){
-     //   return restaurantRepository.findNameRestaurants();
+    //   return restaurantRepository.findNameRestaurants();
 
     //public List<String> getRestaurant;
 }

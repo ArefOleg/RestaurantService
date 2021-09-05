@@ -1,12 +1,13 @@
 package com.example.rest_demo.repository.datajpa;
 
 import com.example.rest_demo.model.Meal;
-import com.example.rest_demo.model.Restaurant;
 import com.example.rest_demo.repository.MealRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
+
 @Repository
 public class DataJpaMealRepository implements MealRepository {
     private final CrudMealRepository crudMealRepository;
@@ -18,9 +19,7 @@ public class DataJpaMealRepository implements MealRepository {
     }
 
     @Override
-    @Transactional
-    public Meal save(Meal meal, int restaurantId) {
-        meal.setRestaurant(crudRestaurantRepository.getById(restaurantId));
+    public Meal save(Meal meal) {
         return crudMealRepository.save(meal);
     }
 
@@ -39,4 +38,7 @@ public class DataJpaMealRepository implements MealRepository {
 
     @Override
     public List<Meal> getMealsFromMenu(int restaurantId){return crudMealRepository.getMealsFromMenu(restaurantId);}
+
+    @Override
+    public Optional <Meal> getMealByName(String name, Integer restaurantId){return crudMealRepository.getMealByName(name, restaurantId);}
 }

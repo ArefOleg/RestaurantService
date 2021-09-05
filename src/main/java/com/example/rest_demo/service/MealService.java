@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MealService {
@@ -23,8 +24,8 @@ public class MealService {
 
     public List<Meal> getMealByRestaurantId(int id){ return mealRepository.getMealByRestaurantId(id);}
 
-    public Meal save(Meal meal, int restaraunt_id){
-        return mealRepository.save(meal, restaraunt_id);
+    public Meal save(Meal meal){
+        return mealRepository.save(meal);
     }
 
     public Meal get(int id){
@@ -40,6 +41,10 @@ public class MealService {
     }
 
     public void saveMealsFromForm(List<Meal> meals){
-        meals.forEach(meal -> save(meal, meal.getRestaurantId()));
+        meals.forEach(meal -> save(meal));
     };
+
+    public Optional<Meal> showByName(String name, Integer restaurantId){
+        return mealRepository.getMealByName(name, restaurantId);
+    }
 }

@@ -18,7 +18,7 @@ import java.util.*;
 @Entity
 @Table(name = "users")
 public class User extends AbstractNamedEntity{
-    
+
     @Column(name = "email", nullable = false, unique = true)
     @NotEmpty(message = "Email should not be empty")
     @Email(message = "Email should be valid")
