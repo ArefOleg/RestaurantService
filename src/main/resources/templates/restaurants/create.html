@@ -12,10 +12,11 @@
     <form th:method="POST" th:action="@{/restaurants}" th:object="${restaurant}">
         <div class="mb-3">
 
-           <!-- <label for="id" class="form-label">Идентификатор</label>
-            <input type="text" th:field="*{id}" class="form-control" id="id" aria-describedby="restaurant name"> -->
+            <!-- <label for="id" class="form-label">Идентификатор</label>
+             <input type="text" th:field="*{id}" class="form-control" id="id" aria-describedby="restaurant name"> -->
             <label for="name" class="form-label">Name</label>
             <input type="text" th:field="*{name}" class="form-control" id="name" aria-describedby="restaurant name">
+            <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
         </div>
         <button type="submit" class="btn btn-success">Create</button>
     </form>

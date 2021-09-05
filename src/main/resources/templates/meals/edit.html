@@ -21,6 +21,7 @@
             <label for="id" class="form-label">Id</label>
             <input type="text" th:field="*{id}" class="form-control" id="id" aria-describedby="Meal id"/>
             <label for="name" class="form-label">Name</label>
+            <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
             <input type="text" th:field="*{name}" class="form-control" id="name" aria-describedby="Meal name"/>
             <label for="price" class="form-label">Price</label>
             <input type="text" th:field="*{price}" class="form-control" id="price" aria-describedby="Price"/>
