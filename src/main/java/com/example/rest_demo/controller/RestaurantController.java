@@ -4,13 +4,16 @@ import com.example.rest_demo.model.Meal;
 import com.example.rest_demo.model.Restaurant;
 import com.example.rest_demo.service.MealService;
 import com.example.rest_demo.service.RestaurantService;
+import com.example.rest_demo.util.validation.RestaurantValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,9 +21,11 @@ import java.util.stream.Collectors;
 @RequestMapping(path = "/restaurants")
 public class RestaurantController {
     private final RestaurantService restaurantService;
+    private final RestaurantValidator restaurantValidator;
     @Autowired
-    public RestaurantController (RestaurantService restaurantService){
+    public RestaurantController (RestaurantService restaurantService, RestaurantValidator restaurantValidator){
         this.restaurantService = restaurantService;
+        this.restaurantValidator = restaurantValidator;
     }
 
     @RequestMapping()
@@ -35,7 +40,12 @@ public class RestaurantController {
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("restaurant") Restaurant restaurant) {
+    public String create(@ModelAttribute("restaurant") @Valid Restaurant restaurant,
+                         BindingResult bindingResult, Model model) {
+        restaurantValidator.validate(restaurant, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "restaurants/create";
+        }
         restaurantService.save(restaurant);
         return "redirect:/meals/create";
     }
@@ -53,12 +63,17 @@ public class RestaurantController {
     }
 
     @PatchMapping("/{id}/change")
-    public String update(@ModelAttribute("restaurant") Restaurant restaurant, @PathVariable("id") int id){
+    public String update(@ModelAttribute("restaurant") @Valid Restaurant restaurant, @PathVariable("id") int id,
+                         BindingResult bindingResult){
+        restaurantValidator.validate(restaurant, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "restaurants/edit";
+        }
         restaurantService.save(restaurant);
         return "redirect:/restaurants";
     }
 
-    @PostMapping("/{id}/delete")
+    @DeleteMapping("/{id}/delete")
     public String delete(@PathVariable("id") int id) {
         restaurantService.delete(id);
         return "redirect:/restaurants";
@@ -77,11 +92,11 @@ public class RestaurantController {
         return "redirect:/restaurants";
     }
 
-   @GetMapping("/voting")
-   public String getMealsFromMenu(Model model){
+    @GetMapping("/voting")
+    public String getMealsFromMenu(Model model){
         model.addAttribute("restaurants", restaurantService.getRestaurants().
                 stream().filter(restaurant -> !restaurant.isNoActiveMeal()).collect(Collectors.toList()));
-       return "restaurants/voting";
+        return "restaurants/voting";
     }
 
 
