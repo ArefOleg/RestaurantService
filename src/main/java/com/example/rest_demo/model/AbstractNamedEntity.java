@@ -6,6 +6,7 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public class AbstractNamedEntity extends AbstractBaseEntity{
 
+    @NotEmpty(message = "Name should not be empty")
     @Column(name = "name", nullable = false)
     protected String name;
 
