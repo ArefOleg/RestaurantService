@@ -34,6 +34,12 @@
             </li>
             <li class="list-group-item d-flex justify-content-between lh-sm">
                 <div>
+                    <h6 class="my-0" th:text="${user.getEmail()}">Second product</h6>
+                    <small class="text-muted">Email</small>
+                </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between lh-sm">
+                <div>
                     <form th:method="DELETE" th:action="@{/users/{id}/delete(id=${user.getId()})}">
                         <input class="btn btn-warning" type="submit" value="Delete"/>
                     </form>

@@ -85,7 +85,7 @@ CREATE TABLE PUBLIC.meal
 INSERT INTO PUBLIC.MEAL(NAME, restaraunt_id, price)
 VALUES ('Grand Velas Tacos', 100000, 25000),
        ('Fortress Stilt Fisherman Indulgence', 100000, 2060),
-       ('Beluga''s Almas caviar', 100000, 7899),
+       ('Belugas Almas caviar', 100000, 7899),
        ('FleurBurger', 100000, 5466),
        ('Billion Dollar Popcorn', 100000, 2800),
        ('GOLDEN OPULENCE SUNDAE', 100001, 1000),

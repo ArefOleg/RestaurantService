@@ -51,12 +51,14 @@ public class UserController {
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id){
         model.addAttribute("user", userService.get(id));
+        model.addAttribute("role", roleService.getAll());
+        model.addAttribute("userRole", userService.get(id).getRole());
         return "users/edit";
     }
 
     @PatchMapping("/{id}/change")
-    public String update(@ModelAttribute("user") User user, @PathVariable("id") int id){
-       // userService.save(user);
+    public String update(@ModelAttribute("user") User user, @PathVariable("id") int id, @RequestParam("roleId") int roleId){
+        userService.save(user, roleId);
         return "redirect:/users";
     }
 

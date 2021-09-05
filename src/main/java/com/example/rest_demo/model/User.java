@@ -64,6 +64,7 @@ public class User extends AbstractNamedEntity{
         this.password = password;
     }
 
+    public Role getRole(){ return this.roles.iterator().next(); }
 
     public Date getRegistered() {
         return registered;

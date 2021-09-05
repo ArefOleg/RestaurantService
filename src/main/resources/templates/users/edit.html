@@ -9,15 +9,24 @@
 <body>
 <nav th:insert="users/menu.html :: nav"></nav>
 <div class="input-form">
-    <form th:method="PATCH" th:action="@{/restaurants/{id}/change(id=${restaurant.getId()})}" th:object="${restaurant}">
-        <div class="mb-3">
-
-            <label for="id" class="form-label">Идентификатор</label>
-             <input type="text" th:field="*{id}" class="form-control" id="id" aria-describedby="restaurant name"/>
-            <label for="name" class="form-label">Название</label>
-            <input type="text" th:field="*{name}" class="form-control" id="name" aria-describedby="restaurant name"/>
+    <form th:method="PATCH" th:action="@{/users/{id}/change(id=${user.getId()})}" th:object="${user}">
+        <div class="input-group"  >
+            <select th:name="roleId" class="custom-select" id="inputGroupSelect04">
+                <option selected th:object="${userRole}" th:value="${userRole.getId()}" th:text="${userRole.getName()}" >Choose Role...</option>
+                <option  th:each="role : ${role}" th:value="${role.getId()}" th:text="${role.getName()}">One</option>
+            </select>
         </div>
-        <button type="submit" class="btn btn-success" >Обновить</button>
+        <div class="mb-3">
+            <label for="id" class="form-label">Id</label>
+             <input type="text" th:field="*{id}" class="form-control" id="id" aria-describedby="user name"/>
+            <label for="name" class="form-label">Name</label>
+            <input type="text" th:field="*{name}" class="form-control" id="name" aria-describedby="user name"/>
+            <label for="password" class="form-label">Password</label>
+            <input type="text" th:field="*{password}" class="form-control" id="password" aria-describedby="user password"/>
+            <label for="email" class="form-label">Email</label>
+            <input type="text" th:field="*{email}" class="form-control" id="email" aria-describedby="user password"/>
+        </div>
+        <button type="submit" class="btn btn-success" >Update</button>
     </form>
 </div>
 </body>
