@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.*;
 
@@ -19,9 +20,9 @@ import java.util.*;
 @Table(name = "users")
 public class User extends AbstractNamedEntity{
 
-    @Column(name = "email", nullable = false, unique = true)
     @NotEmpty(message = "Email should not be empty")
     @Email(message = "Email should be valid")
+    @Column(name = "email", nullable = false, unique = true)
     @NotBlank
     @Size(max = 100)
     private String email;
