@@ -28,7 +28,7 @@
     </profiles>
 
     <properties>
-        <java.version>16</java.version>
+        <java.version>16.0.2</java.version>
     </properties>
     <dependencies>
         <dependency>
