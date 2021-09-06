@@ -53,7 +53,7 @@ public class OrderService {
 
         if (userOrder == null) {return null;}
         else {
-            if (!TimeUtil.compareWastedTime(userOrder.getCreatedTime())) {
+            if (TimeUtil.compareWastedTime(userOrder.getCreatedTime())) {
                 userOrder.setEnabled(false);
                 orderRepository.save(userOrder);
                 return null;
