@@ -39,7 +39,4 @@ public class MealRestController {
         mealService.save(meal);
         return "meal created";
     }
-
-
-
 }

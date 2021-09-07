@@ -48,7 +48,7 @@ public class OrderServiceTest extends AbstractServiceTest{
         Exception exception = assertThrows(ExceedingTheTimeLimitException.class, () -> {
             OrderUtil.orderTimeMethod(user, restaurant, presentLocalDate, orderService);
         });
-        String expectedMessage = "\nCan't vote after 11! You`ve already voted. Your vote is Mirazur";
+        String expectedMessage = "\nThe time for voting is over, applications are accepted until 11 a.m.";
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
     }
